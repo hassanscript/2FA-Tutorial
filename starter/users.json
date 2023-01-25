@@ -1,0 +1,14 @@
+{
+    "user1": {
+        "password": "123",
+        "2FA": {
+            "enabled": false
+        }
+    },
+    "user2": {
+        "password": "123",
+        "2FA": {
+            "enabled": false
+        }
+    }
+}
