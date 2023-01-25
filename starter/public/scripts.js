@@ -1,9 +1,6 @@
 const checkSession = async () => {
   const response = await fetch("/check");
-  const {
-    success,
-    id
-  } = await response.json();
+  const { success, id } = await response.json();
   if (success) {
     $("body").addClass("logged");
     $("#userId").text(id);
@@ -27,10 +24,7 @@ jQuery(document).ready(($) => {
     const password = e.target.password.value;
     let url = `/login?id=${id}&password=${password}`;
     const response = await fetch(url);
-    const {
-      success,
-      error,
-    } = await response.json();
+    const { success, error } = await response.json();
     if (success) {
       $("#loginForm").trigger("reset");
       await checkSession();
@@ -38,5 +32,4 @@ jQuery(document).ready(($) => {
       alert(error);
     }
   });
-  
 });

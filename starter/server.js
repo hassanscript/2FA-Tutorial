@@ -1,9 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const {
-  JsonDB,
-  Config
-} = require("node-json-db");
+const { JsonDB, Config } = require("node-json-db");
 
 const userDb = new JsonDB(new Config("users", true, true, "/"));
 
@@ -15,35 +12,31 @@ app.use(express.static("public"));
 // login user
 app.get("/login", async (req, res) => {
   try {
-    const {
-      id,
-      password
-    } = req.query;
+    const { id, password } = req.query;
     const user = await userDb.getData("/" + id);
     if (user && user.password === password) {
       return res.cookie("id", id).send({
-        success: true
+        success: true,
       });
     }
     throw false;
   } catch (err) {
     res.status(500).send({
-      error: "Invalid credentials"
+      error: "Invalid credentials",
     });
   }
 });
 
 // check current session
 app.get("/check", (req, res) => {
-  const {
-    id
-  } = req.cookies;
-  if (id) return res.send({
-    success: true,
-    id
-  });
+  const { id } = req.cookies;
+  if (id)
+    return res.send({
+      success: true,
+      id,
+    });
   return res.status(500).send({
-    success: false
+    success: false,
   });
 });
 
@@ -51,7 +44,7 @@ app.get("/check", (req, res) => {
 app.get("/logout", async (req, res) => {
   res.clearCookie("id");
   res.send({
-    success: true
+    success: true,
   });
 });
 
